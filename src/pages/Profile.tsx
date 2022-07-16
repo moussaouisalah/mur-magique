@@ -13,13 +13,10 @@ const Login = () => {
       <Header />
       <Container>
         <div className="flex flex-col items-center gap-5 w-full max-w-xl">
-          <Title label="Connectez-vous à votre compte" />
+          <Title label="Profil" />
+          <Input Icon={<User />} placeholder="Username" />
           <Input Icon={<User />} placeholder="Email" />
-          <Input Icon={<User />} placeholder="Password" isPassword />
-          <Button label="Connectez-vous" isFullWidth />
-          <p>
-            Vous n'avez pas de compte? <Link to="/register">S'inscrire</Link>
-          </p>
+          <Button label="Modifier" />
         </div>
       </Container>
     </div>
