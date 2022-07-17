@@ -4,12 +4,7 @@ import Container from "../components/Container";
 import Header from "../components/Header";
 
 const Home = () => {
-  return (
-    <div>
-      <Header />
-      <Container>fdas</Container>
-    </div>
-  );
+  return <Container>fdas</Container>;
 };
 
 export default Home;

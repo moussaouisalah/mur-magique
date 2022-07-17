@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-const Input = ({ value, onChange, placeholder, isPassword, Icon }: any) => {
+type Props = {
+  value: string;
+  onChange: (value: string) => void;
+  Icon?: React.ReactElement;
+  placeholder?: string;
+  isPassword?: boolean;
+};
+
+const Input = ({ value, onChange, placeholder, isPassword, Icon }: Props) => {
   const [isTextVisible, setTextVisible] = useState(!isPassword);
 
   return (
@@ -10,7 +18,7 @@ const Input = ({ value, onChange, placeholder, isPassword, Icon }: any) => {
         type={isTextVisible ? "text" : "password"}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
         className="flex-1 bg-transparent outline-none"
       />
       {isPassword && (

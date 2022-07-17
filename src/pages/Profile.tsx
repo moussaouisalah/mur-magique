@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import Container from "../components/Container";
@@ -8,18 +8,28 @@ import Input from "../components/Input";
 import Title from "../components/Title";
 
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+
   return (
-    <div>
-      <Header />
-      <Container>
-        <div className="flex flex-col items-center gap-5 w-full max-w-xl">
-          <Title label="Profil" />
-          <Input Icon={<User />} placeholder="Username" />
-          <Input Icon={<User />} placeholder="Email" />
-          <Button label="Modifier" />
-        </div>
-      </Container>
-    </div>
+    <Container>
+      <div className="flex flex-col items-center gap-5 w-full max-w-xl">
+        <Title label="Profil" />
+        <Input
+          Icon={<User />}
+          placeholder="Username"
+          value={username}
+          onChange={setUsername}
+        />
+        <Input
+          Icon={<User />}
+          placeholder="Email"
+          value={email}
+          onChange={setEmail}
+        />
+        <Button label="Modifier" />
+      </div>
+    </Container>
   );
 };
 

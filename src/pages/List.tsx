@@ -1,25 +1,34 @@
 import React from "react";
 import Container from "../components/Container";
 import Header from "../components/Header";
+import LoadingSpinner from "../components/LoadingSpinner";
 import Table from "../components/table/Table";
 import TableItem from "../components/table/TableItem";
 import Title from "../components/Title";
+import useFiles from "../hooks/useFiles";
 
 const List = () => {
+  const { files, status, error } = useFiles();
+
+  if (status === "loading") {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    return <p>Error: {JSON.stringify(error)}</p>;
+  }
+
   return (
-    <div>
-      <Header />
-      <Container>
-        <div className="w-full max-w-5xl flex flex-col items-center gap-5">
-          <Title label="File d'attente" />
-          <Table headers={["test", "test"]}>
-            {[1, 4, 4, 4, 4].map((item) => (
-              <TableItem />
-            ))}
-          </Table>
-        </div>
-      </Container>
-    </div>
+    <Container>
+      <div className="w-full max-w-5xl flex flex-col items-center gap-5">
+        <Title label="File d'attente" />
+        <Table headers={["Name", "File Size", "Uploader", "Date"]}>
+          {files.map((file: any) => (
+            <TableItem />
+          ))}
+        </Table>
+      </div>
+    </Container>
   );
 };
 

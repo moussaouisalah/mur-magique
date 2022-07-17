@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useQuery } from "react-query";
+import { getFiles } from "../api";
 
 export default function useFiles() {
-  const [files, setFiles] = useState(null);
-  const [status, setStatus] = useState("loading");
-  const [error, setError] = useState(null);
-  const refetch = () => {};
+  const { data, isLoading, error, refetch } = useQuery(["files"], getFiles);
+
+  const status = isLoading ? "loading" : error ? "error" : "done";
+
   return {
-    files,
+    files: data,
     status,
     error,
     refetch,

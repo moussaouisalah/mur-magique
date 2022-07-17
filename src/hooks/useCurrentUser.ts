@@ -1,27 +1,37 @@
-import { useState } from "react";
+import { useMutation, useQuery } from "react-query";
+import { doLogin, doRegister, editCurrentUser, getCurrentUser } from "../api";
 
 export default function useCurrentUser() {
-  const [currentUser, setCurrentUser] = useState<any>(null);
-  const [status, setStatus] = useState("loading");
-  const [error, setError] = useState(null);
+  const { data, isLoading, error } = useQuery(["currentUser"], getCurrentUser);
+  console.log(data, isLoading, error);
+  // login
+  const {
+    isLoading: isLoadingLogin,
+    error: loginError,
+    mutate: login,
+  } = useMutation(doLogin);
 
-  setTimeout(() => {
-    setCurrentUser({
-      id: "1",
-      name: "John Doe",
-      email: "",
-    });
-    setStatus("done");
-  }, 2000);
-
-  const login = () => {};
   const logout = () => {};
-  const register = () => {};
-  const edit = () => {};
+
+  // register
+  const {
+    isLoading: isLoadingRegister,
+    error: registerError,
+    mutate: register,
+  } = useMutation(doRegister);
+
+  // edit
+  const {
+    isLoading: isLoadingEdit,
+    error: editError,
+    mutate: edit,
+  } = useMutation(editCurrentUser);
+
+  const status = isLoading ? "loading" : error ? "error" : "done";
 
   return {
     status,
-    currentUser,
+    currentUser: data,
     error,
     login,
     logout,

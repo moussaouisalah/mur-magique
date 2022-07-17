@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useMutation } from "react-query";
+import { uploadFiles } from "../api";
 
 export default function useUpload() {
-  const [status, setStatus] = useState("loading");
-  const [error, setError] = useState(null);
-  const upload = () => {};
+  const { mutate, isLoading, error } = useMutation(uploadFiles);
+
+  const status = isLoading ? "loading" : error ? "error" : "done";
+
   return {
     status,
     error,
-    upload,
+    upload: mutate,
   };
 }

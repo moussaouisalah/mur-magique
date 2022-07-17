@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
 import ProtectedRouter from "./components/routers/ProtectedRouter";
 import PublicOnlyRouter from "./components/routers/PublicOnlyRouter";
 import Home from "./pages/Home";
@@ -10,18 +11,21 @@ import Upload from "./pages/Upload";
 
 function App() {
   return (
-    <Routes>
-      <Route element={<ProtectedRouter redirectTo="login" />}>
-        <Route path="upload" element={<Upload />} />
-        <Route path="list" element={<List />} />
-        <Route path="profile" element={<Profile />} />
-      </Route>
-      <Route element={<PublicOnlyRouter redirectTo="/" />}>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-      </Route>
-      <Route path="/" element={<Home />} />
-    </Routes>
+    <div>
+      <Header />
+      <Routes>
+        <Route element={<ProtectedRouter redirectTo="login" />}>
+          <Route path="upload" element={<Upload />} />
+          <Route path="list" element={<List />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+        <Route element={<PublicOnlyRouter redirectTo="/" />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </div>
   );
 }
 

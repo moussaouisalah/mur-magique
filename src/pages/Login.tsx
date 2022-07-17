@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import Container from "../components/Container";
@@ -8,21 +8,32 @@ import Input from "../components/Input";
 import Title from "../components/Title";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
-    <div>
-      <Header />
-      <Container>
-        <div className="flex flex-col items-center gap-5 w-full max-w-xl">
-          <Title label="Connectez-vous à votre compte" />
-          <Input Icon={<User />} placeholder="Email" />
-          <Input Icon={<User />} placeholder="Password" isPassword />
-          <Button label="Connectez-vous" isFullWidth />
-          <p>
-            Vous n'avez pas de compte? <Link to="/register">S'inscrire</Link>
-          </p>
-        </div>
-      </Container>
-    </div>
+    <Container>
+      <div className="flex flex-col items-center gap-5 w-full max-w-xl">
+        <Title label="Connectez-vous à votre compte" />
+        <Input
+          Icon={<User />}
+          placeholder="Email"
+          value={email}
+          onChange={setEmail}
+        />
+        <Input
+          Icon={<User />}
+          placeholder="Password"
+          value={password}
+          onChange={setPassword}
+          isPassword
+        />
+        <Button label="Connectez-vous" isFullWidth />
+        <p>
+          Vous n'avez pas de compte? <Link to="/register">S'inscrire</Link>
+        </p>
+      </div>
+    </Container>
   );
 };
 

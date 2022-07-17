@@ -4,7 +4,7 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 import LoadingSpinner from "../LoadingSpinner";
 
 const ProtectedRouter = ({ redirectTo }: any) => {
-  const { currentUser, status } = useCurrentUser();
+  const { currentUser, status, error } = useCurrentUser();
 
   if (status === "loading") {
     return <LoadingSpinner />;
