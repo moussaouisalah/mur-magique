@@ -3,6 +3,7 @@ import ClickAwayListener from "react-click-away-listener";
 import { Link } from "react-router-dom";
 import useCurrentUser from "../hooks/useCurrentUser";
 import LoadingSpinner from "./LoadingSpinner";
+import profile from "../assets/profile.png";
 
 const HeaderDropDown = () => {
   const { currentUser, status } = useCurrentUser();
@@ -12,10 +13,34 @@ const HeaderDropDown = () => {
   }
 
   if (!currentUser) {
-    return <></>;
+    return (
+      <div>
+        <Link to="login">
+          <div className="py-2 px-5 hover:bg-gray-100 transition-all">
+            Login
+          </div>
+        </Link>
+        <Link to="register">
+          <div className="py-2 px-5 hover:bg-gray-100 transition-all">
+            Register
+          </div>
+        </Link>
+      </div>
+    );
   }
 
-  return <p>salam</p>;
+  return (
+    <div>
+      <Link to="profile">
+        <div className="py-2 px-5 hover:bg-gray-100 transition-all">
+          Profile
+        </div>
+      </Link>
+      <Link to="#">
+        <div className="py-2 px-5 hover:bg-gray-100 transition-all">Logout</div>
+      </Link>
+    </div>
+  );
 };
 
 const Header = () => {
@@ -38,7 +63,9 @@ const Header = () => {
         onClick={() => setOpen((isOpen) => !isOpen)}
         className="cursor-pointer relative"
       >
-        <div>Header</div>
+        <div className="h-16 w-16">
+          <img src={profile} alt="profile" className="w-full" />
+        </div>
         {isOpen && (
           <ClickAwayListener onClickAway={() => setOpen(false)}>
             <div className="absolute bg-white shadow-lg rounded-lg">

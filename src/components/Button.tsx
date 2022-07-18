@@ -1,7 +1,13 @@
 import clsx from "clsx";
 import React from "react";
 
-const Button = ({ label, onClick, isFullWidth }: any) => {
+type Props = {
+  label: string;
+  onClick?: () => void;
+  isFullWidth?: boolean;
+};
+
+const Button = ({ label, onClick, isFullWidth }: Props) => {
   return (
     <button
       onClick={onClick}
