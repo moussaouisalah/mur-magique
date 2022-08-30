@@ -5,11 +5,14 @@ import Button from "../components/Button";
 import Container from "../components/Container";
 import Header from "../components/Header";
 import Title from "../components/Title";
+import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
   const [files, setFiles] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const onDrop = useCallback((acceptedFiles: any) => {
     setFiles(acceptedFiles);
@@ -30,7 +33,7 @@ const Upload = () => {
         },
       })
       .then(() => {
-        window.location.href = "/list";
+        navigate("/list");
       })
       .catch((error) => {
         setError(error.response.data);

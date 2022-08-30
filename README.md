@@ -20,10 +20,8 @@
 
 # todo
 
-- add files upload logic
-- add files actual content
 - replace endpoints with actual ones
-- replace some window.location.href with router redirects
+- add files upload logic
 - remove any (add types)
 - cleanup ui
 - add home ui

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "../api";
 import Button from "../components/Button";
 import Container from "../components/Container";
@@ -16,6 +16,8 @@ const Profile = () => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleEditProfile = (e: any) => {
     e.preventDefault();
     setLoading(true);
@@ -26,7 +28,7 @@ const Profile = () => {
       })
       .then((_) => {
         setCurrentUser({ ...currentUser, username, email });
-        window.location.href = "/list";
+        navigate("/list");
       })
       .catch((error) => {
         setError(error.response.data);

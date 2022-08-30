@@ -1,17 +1,20 @@
 import { useContext, useState } from "react";
 import ClickAwayListener from "react-click-away-listener";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
 import profile from "../assets/profile.png";
 import UserContext from "../contexts/UserContext";
 
 const HeaderDropDown = () => {
-  const [currentUser] = useContext(UserContext);
+  const [currentUser, setCurrentUser] = useContext(UserContext);
+
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user-id");
-    window.location.href = "/login";
+    setCurrentUser(null);
+    navigate("/login");
   };
 
   if (currentUser === undefined) {
