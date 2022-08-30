@@ -56,7 +56,10 @@ const Login = () => {
         />
         <Button label="Connectez-vous" isFullWidth isLoading={isLoading} />
         <p>
-          Vous n'avez pas de compte? <Link to="/register">S'inscrire</Link>
+          Vous n'avez pas de compte?{" "}
+          <Link to="/register" className="text-blue-600">
+            S'inscrire
+          </Link>
         </p>
       </form>
     </Container>

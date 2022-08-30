@@ -63,7 +63,10 @@ const Register = () => {
         />
         <Button label="Créer un compte" isFullWidth isLoading={isLoading} />
         <p>
-          Avez vous un compte? <Link to="/login">S'identifier</Link>
+          Avez vous un compte?{" "}
+          <Link to="/login" className="text-blue-600">
+            S'identifier
+          </Link>
         </p>
       </form>
     </Container>
