@@ -1,7 +1,11 @@
 import React from "react";
 import File from "../icons/File";
 
-const TableItem = () => {
+type Props = {
+  file: any;
+};
+
+const TableItem = ({ file }: Props) => {
   return (
     <tr className="bg-white border-b ">
       <th
@@ -11,7 +15,7 @@ const TableItem = () => {
         <div>
           <File />
         </div>
-        <div> Apple MacBook Pro 17"</div>
+        <div>{file.name}</div>
       </th>
       <td className="py-4 px-6">8.68 MB</td>
       <td className="py-4 px-6">Alexander William</td>

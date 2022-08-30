@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import useCurrentUser from "../../hooks/useCurrentUser";
+import UserContext from "../../contexts/UserContext";
 import LoadingSpinner from "../LoadingSpinner";
 
 const ProtectedRouter = ({ redirectTo }: any) => {
-  const { currentUser, status, error } = useCurrentUser();
+  const [currentUser] = useContext(UserContext);
 
-  if (status === "loading") {
+  if (currentUser === undefined) {
     return <LoadingSpinner />;
   }
 

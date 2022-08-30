@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
@@ -5,19 +6,30 @@ import Container from "../components/Container";
 import User from "../components/icons/User";
 import Input from "../components/Input";
 import Title from "../components/Title";
-import useCurrentUser from "../hooks/useCurrentUser";
 
 const Register = () => {
-  const { register, status } = useCurrentUser();
-  console.log("rend");
-
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleRegister = (e: any) => {
     e.preventDefault();
     console.log("register");
+    axios
+      .post("http://localhost:3000/users", {
+        username,
+        email,
+        password,
+      })
+      .then((response) => {
+        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("user-id", response.data.user.id);
+        window.location.href = "/list";
+      })
+      .catch((error) => {
+        setError(error.response.data);
+      });
   };
 
   return (
@@ -27,6 +39,7 @@ const Register = () => {
         className="flex flex-col items-center gap-5 w-full max-w-xl"
       >
         <Title label="Créer un compte" />
+        <p>{error}</p>
         <Input
           Icon={<User />}
           placeholder="Username"

@@ -1,14 +1,20 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ClickAwayListener from "react-click-away-listener";
 import { Link } from "react-router-dom";
-import useCurrentUser from "../hooks/useCurrentUser";
 import LoadingSpinner from "./LoadingSpinner";
 import profile from "../assets/profile.png";
+import UserContext from "../contexts/UserContext";
 
 const HeaderDropDown = () => {
-  const { currentUser, status } = useCurrentUser();
+  const [currentUser] = useContext(UserContext);
 
-  if (status === "loading") {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user-id");
+    window.location.href = "/login";
+  };
+
+  if (currentUser === undefined) {
     return <LoadingSpinner />;
   }
 
@@ -36,9 +42,9 @@ const HeaderDropDown = () => {
           Profile
         </div>
       </Link>
-      <Link to="#">
+      <button onClick={handleLogout}>
         <div className="py-2 px-5 hover:bg-gray-100 transition-all">Logout</div>
-      </Link>
+      </button>
     </div>
   );
 };

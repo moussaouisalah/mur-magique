@@ -1,12 +1,8 @@
 # todo
 
-add register logic
-add login logic
-add files data fetching
-add files upload
+add files upload logic
+add files actual content
+replace endpoints with actual ones
 remove any (add types)
-add header popup ui
-add icons and stuff
-better error handling
 cleanup ui
 add home ui

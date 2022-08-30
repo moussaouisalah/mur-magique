@@ -1,22 +1,19 @@
-export async function getCurrentUser() {
-  return fetch("http://localhost:3001/users/1").then((response) => {
-    if (!response.ok) return null;
-    return response.json();
-  });
-}
+import axios from "axios";
 
-export async function editCurrentUser() {}
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token && config.headers) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
 
-export async function doLogin() {}
+axios.interceptors.response.use((response) => {
+  if (response.status === 401) {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  }
+  return response;
+});
 
-export async function doRegister() {}
-
-export async function logout() {}
-
-export async function getFiles() {
-  return fetch("http://localhost:3001/files").then((response) =>
-    response.json()
-  );
-}
-
-export async function uploadFiles() {}
+export default axios;

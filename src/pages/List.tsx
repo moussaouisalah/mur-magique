@@ -5,16 +5,22 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import Table from "../components/table/Table";
 import TableItem from "../components/table/TableItem";
 import Title from "../components/Title";
-import useFiles from "../hooks/useFiles";
+import useFetch from "../hooks/useFetch";
 
 const List = () => {
-  const { files, status, error } = useFiles();
+  const {
+    data: files,
+    loading,
+    error,
+  } = useFetch(
+    "http://localhost:3000/files"
+  ); /* TODO: replace with actual endpoint */
 
-  if (status === "loading") {
+  if (loading) {
     return <LoadingSpinner />;
   }
 
-  if (error) {
+  if (error || !files) {
     return <p>Error: {JSON.stringify(error)}</p>;
   }
 
@@ -24,7 +30,7 @@ const List = () => {
         <Title label="File d'attente" />
         <Table headers={["Name", "File Size", "Uploader", "Date"]}>
           {files.map((file: any) => (
-            <TableItem />
+            <TableItem file={file} />
           ))}
         </Table>
       </div>
