@@ -1,7 +1,10 @@
 {
   "files": [
     {
-      "name": "test"
+      "name": "test",
+      "size": "50 Kb",
+      "uploader": "Salah",
+      "createdAt": "2019-01-01T00:00:00.000Z"
     }
   ],
   "users": [

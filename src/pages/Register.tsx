@@ -11,11 +11,12 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleRegister = (e: any) => {
     e.preventDefault();
-    console.log("register");
+    setLoading(true);
     axios
       .post("http://localhost:3000/users", {
         username,
@@ -29,6 +30,7 @@ const Register = () => {
       })
       .catch((error) => {
         setError(error.response.data);
+        setLoading(false);
       });
   };
 
@@ -59,7 +61,7 @@ const Register = () => {
           onChange={setPassword}
           isPassword
         />
-        <Button label="Créer un compte" isFullWidth />
+        <Button label="Créer un compte" isFullWidth isLoading={isLoading} />
         <p>
           Avez vous un compte? <Link to="/login">S'identifier</Link>
         </p>

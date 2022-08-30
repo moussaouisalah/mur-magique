@@ -11,10 +11,12 @@ import Title from "../components/Title";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleLogin = (e: any) => {
     e.preventDefault();
+    setLoading(true);
     axios
       .post("http://localhost:3000/login", {
         email,
@@ -27,6 +29,7 @@ const Login = () => {
       })
       .catch((error) => {
         setError(error.response.data);
+        setLoading(false);
       });
   };
 
@@ -51,7 +54,7 @@ const Login = () => {
           onChange={setPassword}
           isPassword
         />
-        <Button label="Connectez-vous" isFullWidth />
+        <Button label="Connectez-vous" isFullWidth isLoading={isLoading} />
         <p>
           Vous n'avez pas de compte? <Link to="/register">S'inscrire</Link>
         </p>

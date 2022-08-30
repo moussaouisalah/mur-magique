@@ -17,12 +17,12 @@ const TableItem = ({ file }: Props) => {
         </div>
         <div>{file.name}</div>
       </th>
-      <td className="py-4 px-6">8.68 MB</td>
-      <td className="py-4 px-6">Alexander William</td>
-      <td className="py-4 px-6">Jun 12, 2022</td>
+      <td className="py-4 px-6">{file.size}</td>
+      <td className="py-4 px-6">{file.uploader}</td>
+      <td className="py-4 px-6">{file.createdAt}</td>
       <td className="py-4 px-6">
         <a href="#" className="font-medium text-blue-600  hover:underline">
-          Edit
+          Download
         </a>
       </td>
     </tr>

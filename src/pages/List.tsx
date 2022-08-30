@@ -28,9 +28,9 @@ const List = () => {
     <Container>
       <div className="w-full max-w-5xl flex flex-col items-center gap-5">
         <Title label="File d'attente" />
-        <Table headers={["Name", "File Size", "Uploader", "Date"]}>
+        <Table headers={["Name", "File Size", "Uploader", "Date", ""]}>
           {files.map((file: any) => (
-            <TableItem file={file} />
+            <TableItem file={file} key={file.id} />
           ))}
         </Table>
       </div>

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "../api";
 import Button from "../components/Button";
 import Container from "../components/Container";
 import Header from "../components/Header";
@@ -9,12 +10,28 @@ import Title from "../components/Title";
 import UserContext from "../contexts/UserContext";
 
 const Profile = () => {
-  const [currentUser] = useContext(UserContext);
+  const [currentUser, setCurrentUser] = useContext(UserContext);
   const [username, setUsername] = useState(currentUser.username);
   const [email, setEmail] = useState(currentUser.email);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleEditProfile = () => {
-    console.log(username, email);
+  const handleEditProfile = (e: any) => {
+    e.preventDefault();
+    setLoading(true);
+    axios
+      .put(`http://localhost:3000/users/${currentUser.id}`, {
+        username,
+        email,
+      })
+      .then((_) => {
+        setCurrentUser({ ...currentUser, username, email });
+        window.location.href = "/list";
+      })
+      .catch((error) => {
+        setError(error.response.data);
+        setLoading(false);
+      });
   };
 
   return (
@@ -24,6 +41,7 @@ const Profile = () => {
         className="flex flex-col items-center gap-5 w-full max-w-xl"
       >
         <Title label="Profil" />
+        <p>{error}</p>
         <Input
           Icon={<User />}
           placeholder="Username"
@@ -36,7 +54,7 @@ const Profile = () => {
           value={email}
           onChange={setEmail}
         />
-        <Button label="Modifier" />
+        <Button label="Modifier" isLoading={isLoading} />
       </form>
     </Container>
   );
