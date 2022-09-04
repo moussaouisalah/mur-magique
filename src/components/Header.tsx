@@ -11,7 +11,7 @@ const HeaderDropDown = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("jwt");
     localStorage.removeItem("user-id");
     setCurrentUser(null);
     navigate("/login");

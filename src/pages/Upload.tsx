@@ -8,25 +8,26 @@ import Title from "../components/Title";
 import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
-  const [files, setFiles] = useState([]);
+  const [codes, setCodes] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   const onDrop = useCallback((acceptedFiles: any) => {
-    setFiles(acceptedFiles);
+    setCodes(acceptedFiles);
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const handleFileUpload = () => {
     setLoading(true);
     const formData = new FormData();
-    files.forEach((file: any) => {
-      formData.append("files", file);
-    });
+    /*codes.forEach((code: any) => {
+      formData.append("codes", code);
+    });*/
+    formData.append("code", codes[0]);
     axios
-      .post("/upload", formData, {
+      .post("http://localhost:8080/codes", formData, {
         /* TODO: replace with actual endpoint */
         headers: {
           "Content-Type": "multipart/form-data",
@@ -57,7 +58,7 @@ const Upload = () => {
             <p>Drag 'n' drop some files here, or click to select files</p>
           )}
         </div>
-        {files.map((file: any) => (
+        {codes.map((file: any) => (
           <div key={file.name} className="w-full flex justify-between">
             <p>{file.name}</p>
             <p>{file.size} bytes</p>

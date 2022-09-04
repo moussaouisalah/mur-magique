@@ -16,13 +16,13 @@ function App() {
   const [currentUser, setCurrentUser] = useState<any>(undefined);
 
   useEffect(() => {
-    const authToken = localStorage.getItem("token");
+    const authToken = localStorage.getItem("jwt");
     const userId = localStorage.getItem("user-id");
 
     if (authToken && userId) {
       /* TODO: replace with actual endpoint */
       axios
-        .get(`http://localhost:3000/users/${userId}`)
+        .get(`http://localhost:8080/users/${userId}`)
         .then((response) => {
           setCurrentUser(response.data);
         })

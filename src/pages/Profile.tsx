@@ -11,7 +11,8 @@ import UserContext from "../contexts/UserContext";
 
 const Profile = () => {
   const [currentUser, setCurrentUser] = useContext(UserContext);
-  const [username, setUsername] = useState(currentUser.username);
+  const [firstName, setFirstName] = useState(currentUser.firstName);
+  const [lastName, setLastName] = useState(currentUser.lastName);
   const [email, setEmail] = useState(currentUser.email);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -22,12 +23,13 @@ const Profile = () => {
     e.preventDefault();
     setLoading(true);
     axios
-      .put(`http://localhost:3000/users/${currentUser.id}`, {
-        username,
+      .put(`http://localhost:8080/users/${currentUser.id}`, {
+        firstName,
+        lastName,
         email,
       })
       .then((_) => {
-        setCurrentUser({ ...currentUser, username, email });
+        setCurrentUser({ ...currentUser, username: firstName, email });
         navigate("/list");
       })
       .catch((error) => {
@@ -46,9 +48,15 @@ const Profile = () => {
         <p>{error}</p>
         <Input
           Icon={<User />}
-          placeholder="Username"
-          value={username}
-          onChange={setUsername}
+          placeholder="Prénom"
+          value={firstName}
+          onChange={setFirstName}
+        />
+        <Input
+          Icon={<User />}
+          placeholder="Nom"
+          value={lastName}
+          onChange={setLastName}
         />
         <Input
           Icon={<User />}

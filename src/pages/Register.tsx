@@ -8,7 +8,8 @@ import Input from "../components/Input";
 import Title from "../components/Title";
 
 const Register = () => {
-  const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -18,14 +19,15 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     axios
-      .post("http://localhost:3000/users", {
-        username,
+      .post("http://localhost:8080/register", {
+        firstName,
+        lastName,
         email,
         password,
       })
       .then((response) => {
-        localStorage.setItem("token", response.data.accessToken);
-        localStorage.setItem("user-id", response.data.user.id);
+        localStorage.setItem("jwt", response.data.jwt);
+        localStorage.setItem("user-id", response.data.userId);
         window.location.href = "/list";
       })
       .catch((error) => {
@@ -44,9 +46,15 @@ const Register = () => {
         <p>{error}</p>
         <Input
           Icon={<User />}
-          placeholder="Username"
-          value={username}
-          onChange={setUsername}
+          placeholder="Prénom"
+          value={firstName}
+          onChange={setFirstName}
+        />
+        <Input
+          Icon={<User />}
+          placeholder="Nom"
+          value={lastName}
+          onChange={setLastName}
         />
         <Input
           Icon={<User />}

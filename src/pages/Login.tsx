@@ -18,13 +18,13 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     axios
-      .post("http://localhost:3000/login", {
-        email,
+      .post("http://localhost:8080/auth", {
+        "username" : email,
         password,
       })
       .then((response) => {
-        localStorage.setItem("token", response.data.accessToken);
-        localStorage.setItem("user-id", response.data.user.id);
+        localStorage.setItem("jwt", response.data.jwt);
+        localStorage.setItem("user-id", response.data.userId);
         window.location.href = "/list";
       })
       .catch((error) => {

@@ -13,7 +13,7 @@ const List = () => {
     loading,
     error,
   } = useFetch(
-    "http://localhost:3000/files"
+    "http://localhost:8080/codes"
   ); /* TODO: replace with actual endpoint */
 
   if (loading) {
