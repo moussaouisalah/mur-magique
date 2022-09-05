@@ -9,10 +9,11 @@ axios.interceptors.request.use((config) => {
 });
 
 axios.interceptors.response.use((response) => {
-  if (response.status === 401) {
+  if (response.status === 403) {
     localStorage.removeItem("jwt");
     window.location.href = "/login";
   }
+  console.log(response);
   return response;
 });
 
