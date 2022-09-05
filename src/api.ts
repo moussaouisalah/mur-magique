@@ -8,13 +8,14 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-axios.interceptors.response.use((response) => {
-  if (response.status === 403) {
+axios.interceptors.response.use((response) => response, (error) => {
+  if (error.response.status === 403 || error.response.status === 401) {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("user-id");
     window.location.href = "/login";
   }
-  console.log(response);
-  return response;
+  return error;
 });
+
 
 export default axios;

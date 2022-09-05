@@ -28,6 +28,8 @@ function App() {
         })
         .catch(() => {
           setCurrentUser(null);
+          //localStorage.removeItem("jwt");
+          //localStorage.removeItem("user-id");
         });
     } else {
       setCurrentUser(null);

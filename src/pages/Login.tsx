@@ -28,10 +28,9 @@ const Login = () => {
         window.location.href = "/list";
       })
       .catch((error) => {
-        //localStorage.removeItem("jwt");
-        //localStorage.removeItem("user-id");
-        console.log(error.data);
-        console.log(localStorage.getItem("jwt"));
+        
+        //console.log(error.data);
+        //console.log(localStorage.getItem("jwt"));
         setError(error.response.data);
         setLoading(false);
       });
