@@ -1,6 +1,6 @@
-import React from "react";
+import axios from "axios";
+import { useState } from "react";
 import Container from "../components/Container";
-import Header from "../components/Header";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Table from "../components/table/Table";
 import TableItem from "../components/table/TableItem";
@@ -8,15 +8,25 @@ import Title from "../components/Title";
 import useFetch from "../hooks/useFetch";
 
 const List = () => {
+  const [isLoadingDelete, setLoadingDelete] = useState(false);
   const {
     data: files,
     loading,
     error,
+    refetch,
   } = useFetch(
     "http://localhost:8080/codes"
   ); /* TODO: replace with actual endpoint */
 
-  if (loading) {
+  const handleDelete = (id: string) => {
+    setLoadingDelete(true);
+    axios.delete(`http://localhost:8080/codes/${id}`).then(() => {
+      refetch();
+      setLoadingDelete(false);
+    });
+  };
+
+  if (loading || isLoadingDelete) {
     return <LoadingSpinner />;
   }
 
@@ -29,8 +39,13 @@ const List = () => {
       <div className="w-full max-w-5xl flex flex-col items-center gap-5">
         <Title label="File d'attente" />
         <Table headers={["Name", "File Size", "Uploader", "Date", ""]}>
-          {files.map((file: any) => (
-            <TableItem file={file} key={file.id} />
+          {files.map((file: any, index: number) => (
+            <TableItem
+              file={file}
+              key={file.id}
+              onDelete={() => handleDelete(file.id)}
+              highlight={index === 0}
+            />
           ))}
         </Table>
       </div>

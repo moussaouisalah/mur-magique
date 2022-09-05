@@ -54,6 +54,8 @@ const HeaderDropDown = () => {
 
 const Header = () => {
   const [isOpen, setOpen] = useState(false);
+  const [currentUser] = useContext(UserContext);
+
   return (
     <div className="w-full max-w-4xl m-auto flex items-center justify-between p-5">
       <h1 className="text-blue-500 font-bold text-xl">Mur magique</h1>
@@ -65,7 +67,9 @@ const Header = () => {
           <Link to="/list">File d'attente</Link>
         </li>
         <li>
-          <Link to="/upload">Upload code</Link>
+          {currentUser && currentUser.role === "student" && (
+            <Link to="/upload">Upload code</Link>
+          )}
         </li>
       </ul>
       <div

@@ -17,6 +17,7 @@
     {
       "email": "test@email.come",
       "password": "$2a$10$wWSS2LzbQ8I4btW0jg1osORiI4YXFQBnwuqEjw6a0rfzgeQX0ZvdO",
+      "role": "user",
       "username": "adf",
       "id": 2
     },

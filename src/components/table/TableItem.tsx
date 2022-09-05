@@ -1,13 +1,19 @@
-import React from "react";
+import clsx from "clsx";
+import React, { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 import File from "../icons/File";
 
 type Props = {
   file: any;
+  onDelete: () => void;
+  highlight?: boolean;
 };
 
-const TableItem = ({ file }: Props) => {
+const TableItem = ({ file, onDelete, highlight }: Props) => {
+  const [currentUser] = useContext(UserContext);
+
   return (
-    <tr className="bg-white border-b ">
+    <tr className={clsx("border-b", highlight ? "bg-green-300" : "bg-white")}>
       <th
         scope="row"
         className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap flex items-center gap-2"
@@ -21,9 +27,18 @@ const TableItem = ({ file }: Props) => {
       <td className="py-4 px-6">{file.uploader}</td>
       <td className="py-4 px-6">{file.createdAt}</td>
       <td className="py-4 px-6">
-        <a href="#" className="font-medium text-blue-600  hover:underline">
-          Download
-        </a>
+        {currentUser.role === "admin" ? (
+          <button
+            onClick={onDelete}
+            className="font-medium text-red-600  hover:underline"
+          >
+            Supprimer
+          </button>
+        ) : (
+          <button className="font-medium text-blue-600  hover:underline">
+            Download
+          </button>
+        )}
       </td>
     </tr>
   );
